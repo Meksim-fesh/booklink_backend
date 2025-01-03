@@ -4,10 +4,16 @@ from django.db import models
 class Genre(models.Model):
     name = models.CharField(max_length=64)
 
+    def __str__(self):
+        return self.name
+
 
 class Author(models.Model):
     first_name = models.CharField(max_length=128)
     last_name = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.first_name + " " + self.last_name
 
 
 class Book(models.Model):
@@ -21,6 +27,9 @@ class Book(models.Model):
     views = models.IntegerField()
     views_per_month = models.IntegerField()
 
+    def __str__(self):
+        return "Book: " + self.name
+
 
 class Chapter(models.Model):
     book = models.ForeignKey(
@@ -29,6 +38,9 @@ class Chapter(models.Model):
     )
     name = models.CharField(max_length=255)
     link = models.URLField()
+
+    def __str__(self):
+        return "Chapter: " + self.name
 
 
 class Commentary(models.Model):
@@ -58,3 +70,6 @@ class Commentary(models.Model):
         ]
         verbose_name = "Commentary"
         verbose_name_plural = "Commentaries"
+
+    def __str__(self):
+        return self.content
