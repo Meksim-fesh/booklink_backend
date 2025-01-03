@@ -47,3 +47,14 @@ class Commentary(models.Model):
         null=True,
         blank=True,
     )
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                condition=models.Q(book__isnull=False)
+                | models.Q(parent__isnull=False),
+                name="has_parent_or_book_to_refer_to",
+            )
+        ]
+        verbose_name = "Commentary"
+        verbose_name_plural = "Commentaries"
